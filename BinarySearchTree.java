@@ -26,7 +26,8 @@ public class BinarySearchTree {
         System.out.print("Postorder: ");
         bst.displayPostorder(root);
         System.out.println("");
-        System.out.println("Hieght of tree: "+ bst.calculateHeight(root));
+        System.out.println("Hieght of tree using method 1: "+ bst.calculateHeight(root));
+        System.out.println("Hieght of tree using method 2: "+ bst.treeHeight(root));
 
     }
 
@@ -119,6 +120,44 @@ public class BinarySearchTree {
         }
         return height;
     }
+
+    int treeHeight(Node node)
+    {
+        // Base Case
+        if (node == null)
+            return 0;
+
+        // Create an empty queue for level order tarversal
+        Queue<Node> q = new LinkedList();
+
+        // Enqueue Root and initialize height
+        q.add(node);
+        int height = -1;
+
+        while (1 == 1)
+        {
+            // nodeCount (queue size) indicates number of nodes
+            // at current lelvel.
+            int nodeCount = q.size();
+            if (nodeCount == 0)
+                return height;
+            height++;
+
+            // Dequeue all nodes of current level and Enqueue all
+            // nodes of next level
+            while (nodeCount > 0)
+            {
+                Node newnode = q.peek();
+                q.remove();
+                if (newnode.left != null)
+                    q.add(newnode.left);
+                if (newnode.right != null)
+                    q.add(newnode.right);
+                nodeCount--;
+            }
+        }
+    }
+
 
     class Node{
         int data;
