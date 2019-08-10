@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinarySearchTree {
 
     static Node root=null;
@@ -22,6 +25,8 @@ public class BinarySearchTree {
         System.out.println("");
         System.out.print("Postorder: ");
         bst.displayPostorder(root);
+        System.out.println("");
+        System.out.println("Hieght of tree: "+ bst.calculateHeight(root));
 
     }
 
@@ -81,6 +86,38 @@ public class BinarySearchTree {
             displayPostorder(current.right);
             System.out.print(" " + current.data);
         }
+    }
+
+    public int calculateHeight(Node root) {
+        Queue<Node> q = new LinkedList<Node>();
+        int height = -1;
+        // add root to the queue
+        q.add(root);
+        // add null as marker
+        q.add(null);
+        while (q.isEmpty() == false) {
+            Node n = q.remove();
+            // check if n is null, if yes, we have reached to the end of the
+            // current level, increment the height by 1, and add the another
+            // null as marker for next level
+            if (n == null) {
+                // before adding null, check if queue is empty, which means we
+                // have traveled all the levels
+                if(!q.isEmpty()){
+                    q.add(null);
+                }
+                height++;
+            }else{
+                // else add the children of extracted node.
+                if (n.left != null) {
+                    q.add(n.left);
+                }
+                if (n.right != null) {
+                    q.add(n.right);
+                }
+            }
+        }
+        return height;
     }
 
     class Node{
