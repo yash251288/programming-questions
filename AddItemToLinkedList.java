@@ -25,6 +25,9 @@ import java.util.*;
                {
                    tail.next = newNode;
                    tail =newNode;
+                    /*if we want to add element in front
+                    newNode.next=head;
+                    head =newNode;*/
                }
                 return head;
         }
